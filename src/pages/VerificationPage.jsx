@@ -7,7 +7,7 @@ function getErrorMessage(error) {
     return error.message;
   }
 
-  return "Unable to verify the candidate right now.";
+  return "Candidate verification failed. Please try again.";
 }
 
 export default function VerificationPage() {
@@ -22,7 +22,7 @@ export default function VerificationPage() {
     const normalizedEmail = email.trim().toLowerCase();
 
     if (!normalizedEmail) {
-      setError("Please enter your email address.");
+      setError("Email address is required.");
       return;
     }
 
@@ -46,8 +46,7 @@ export default function VerificationPage() {
           <p className="eyebrow">Step 1</p>
           <h1>Candidate Verification</h1>
           <p className="muted">
-            Enter the email used for your interview invite. After verification,
-            you will be redirected to the voice interview room.
+            Please provide your registered email address to authenticate and access the interview session.
           </p>
         </div>
 

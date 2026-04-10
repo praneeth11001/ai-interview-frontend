@@ -50,7 +50,7 @@ export default function InterviewPage() {
   const isLastQuestion = currentIndex >= questions.length - 1;
   const progressLabel = questions.length
     ? `Question ${currentIndex + 1} of ${questions.length}`
-    : "Preparing interview";
+    : "Initializing session...";
 
   useEffect(() => {
     let isMounted = true;
@@ -93,7 +93,7 @@ export default function InterviewPage() {
       ) {
         if (isMounted) {
           setCameraState("Unavailable");
-          setCameraError("Camera preview is not supported in this browser.");
+          setCameraError("Camera preview is unsupported in the current environment.");
         }
         return;
       }
@@ -118,7 +118,7 @@ export default function InterviewPage() {
         }
 
         setCameraState("Blocked");
-        setCameraError("Camera access was blocked. Allow it to see your preview.");
+        setCameraError("Camera access denied. Please verify browser permissions.");
       }
     }
 
@@ -188,7 +188,7 @@ export default function InterviewPage() {
     const SpeechRecognition = getSpeechRecognition();
 
     if (!SpeechRecognition) {
-      setError("Speech recognition is not supported in this browser.");
+      setError("Speech recognition is unsupported in the current environment.");
       return;
     }
 
@@ -247,7 +247,7 @@ export default function InterviewPage() {
 
     recognition.onerror = () => {
       setVoiceState("Idle");
-      setError("Unable to capture your voice. Please try again.");
+      setError("Audio capture failed. Please retry.");
     };
 
     recognition.onend = () => {
@@ -319,7 +319,7 @@ export default function InterviewPage() {
 
       navigate(`/result/${token}`);
     } catch (submitError) {
-      setError("Unable to complete the interview right now.");
+      setError("Failed to submit interview data.");
       setIsSubmitting(false);
       return;
     }
@@ -338,7 +338,7 @@ export default function InterviewPage() {
         <section className="card">
           <p className="eyebrow">Interview</p>
           <h1>Missing Session</h1>
-          <p className="muted">No interview token was provided for this session.</p>
+          <p className="muted">Invalid session: Authentication token is missing.</p>
         </section>
       </main>
     );
@@ -365,7 +365,7 @@ export default function InterviewPage() {
           </div>
 
           <p className="question-text">
-            {isLoading ? "Loading your first interview question..." : currentQuestion}
+            {isLoading ? "Retrieving interview questions..." : currentQuestion}
           </p>
         </header>
 
@@ -380,13 +380,13 @@ export default function InterviewPage() {
               <span className="status-dot" />
               <p>
                 {voiceState === "Listening" &&
-                  "Recording in progress. Speak your answer clearly."}
+                  "Recording in progress..."}
                 {voiceState === "Processing" &&
-                  "Converting speech into text. Please wait."}
+                  "Processing audio transcript..."}
                 {voiceState === "Done" &&
-                  "Answer captured. You can move to the next question."}
+                  "Response recorded successfully."}
                 {voiceState === "Idle" &&
-                  "Click the mic to answer. Live transcript will appear here."}
+                  "Ready. Click the microphone to begin recording."}
               </p>
             </div>
 
@@ -397,7 +397,7 @@ export default function InterviewPage() {
                   transcript || currentAnswer ? "transcript-text" : "transcript-empty"
                 }
               >
-                {transcript || currentAnswer || "No answer captured yet."}
+              {transcript || currentAnswer || "No transcript available."}
               </p>
             </div>
 
@@ -424,7 +424,7 @@ export default function InterviewPage() {
                   <div className="video-orb" />
                   <p className="video-title">Candidate Camera Preview</p>
                   <p className="muted">
-                    {cameraError || "Preparing camera preview for this interview."}
+                    {cameraError || "Initializing camera feed..."}
                   </p>
                 </div>
               )}

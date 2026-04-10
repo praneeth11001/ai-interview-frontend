@@ -32,7 +32,7 @@ function extractToken(payload) {
     payload?.data?.interviewToken;
 
   if (!token) {
-    throw new Error("Verification succeeded, but no interview token was returned.");
+    throw new Error("Authentication successful, but session token is missing.");
   }
 
   return token;
@@ -46,7 +46,7 @@ function extractQuestions(payload) {
     payload;
 
   if (!Array.isArray(questions) || !questions.length) {
-    throw new Error("No interview questions were returned for this session.");
+    throw new Error("No assessment questions found for the provided session.");
   }
 
   return questions.map((entry) => {

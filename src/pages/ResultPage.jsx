@@ -6,7 +6,7 @@ const INTERVIEW_RESULT_STORAGE_KEY = "ai-interview-result";
 const EMPTY_RESULT = {
   token: "",
   score: 0,
-  summary: "No interview result has been generated yet.",
+  summary: "Assessment results are pending.",
   strengths: [],
   weaknesses: [],
   answers: [],
@@ -50,8 +50,8 @@ export default function ResultPage() {
             <h1>Interview Result</h1>
             <p className="muted">
               {hasResult
-                ? "AI interview summary generated from your captured answers."
-                : "Complete the interview to generate a result summary."}
+                ? "Assessment summary based on candidate responses."
+                : "Awaiting interview completion to generate assessment."}
             </p>
           </div>
           <div className="score-badge">
@@ -75,7 +75,7 @@ export default function ResultPage() {
                 ))}
               </ul>
             ) : (
-              <p className="muted">No strengths available yet.</p>
+              <p className="muted">No strengths data available.</p>
             )}
           </article>
 
@@ -88,7 +88,7 @@ export default function ResultPage() {
                 ))}
               </ul>
             ) : (
-              <p className="muted">No weaknesses available yet.</p>
+              <p className="muted">No weaknesses data available.</p>
             )}
           </article>
         </section>
@@ -108,7 +108,7 @@ export default function ResultPage() {
               ))}
             </div>
           ) : (
-            <p className="muted">No submitted answers found for this session.</p>
+            <p className="muted">No response data found for this session.</p>
           )}
         </section>
 
